@@ -1,0 +1,20 @@
+{
+  "name": "drekta-whatsapp-booking-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp Business API appointment booking bot for Dr. Ekta Narula Dental Care",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "check": "for f in $(find src -name '*.js'); do node --check $f || exit 1; done; echo OK"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

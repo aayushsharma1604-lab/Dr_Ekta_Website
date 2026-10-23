@@ -1,0 +1,29 @@
+{
+  "businessName": "Dr. Ekta Narula Dental Care",
+  "supportPhone": "+919310378836",
+  "ownerPhone": "+919310378836",
+  "sessionTimeoutMinutes": 30,
+  "services": [
+    "Dental Consultation",
+    "Teeth Cleaning",
+    "Root Canal Treatment",
+    "Braces Consultation",
+    "Teeth Whitening",
+    "Other"
+  ],
+  "timeSlots": [
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "05:00 PM"
+  ],
+  "patientTypes": [
+    "New Patient",
+    "Existing Patient"
+  ],
+  "restartKeywords": ["restart", "start over", "menu", "hi", "hello", "hey", "book"],
+  "welcomeEmoji": "👋"
+}

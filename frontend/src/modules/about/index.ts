@@ -1,0 +1,1 @@
+export { AboutDrEkta } from "./about";

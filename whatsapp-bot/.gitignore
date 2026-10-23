@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# secrets
+.env
+.env.local
+.env.*.local
+
+# runtime data
+data/
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
