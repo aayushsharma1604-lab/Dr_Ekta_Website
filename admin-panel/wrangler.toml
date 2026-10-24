@@ -1,0 +1,16 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
+main = ".open-next/worker.js"
+name = "dr-ekta-admin"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# NEXT_PUBLIC_API_BASE / NEXT_PUBLIC_FRONTEND_URL are inlined at build time,
+# so they are supplied by the GitHub Actions workflow from repo secrets — not here.
+
+[vars]
+NEXT_PUBLIC_API_BASE = "https://api.drektanarula.com"
+NEXT_PUBLIC_FRONTEND_URL = "https://admin.drektanarula.com"

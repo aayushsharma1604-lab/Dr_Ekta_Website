@@ -33,3 +33,7 @@ Thumbs.db
 
 # Vercel
 .vercel/
+
+# Cloudflare
+.open-next/
+.wrangler/
