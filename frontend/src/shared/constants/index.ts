@@ -4,8 +4,8 @@ export const SITE_CONFIG = {
     "Dr. Ekta Narula is a trusted dental expert in New Delhi with 15+ years of experience in cosmetic dentistry, implants, root canals, and smile makeovers.",
   url: "https://drektanarula.com",
   ogImage: "/og-image.jpg",
-  phone: "+919310378836",
-  whatsapp: "919310378836",
+  phone: "+919811013519",
+  whatsapp: "919811013519",
   email: "info@drektanarula.com",
   address: {
     street: "R707, Block R, Rajender Nagar Part 1",
