@@ -12,5 +12,4 @@ binding = "ASSETS"
 # so they are supplied by the GitHub Actions workflow from repo secrets — not here.
 
 [vars]
-# NEXT_PUBLIC_API_BASE = "https://api.drektanarula.com/api"
-# NEXT_PUBLIC_FRONTEND_URL = "https://www.drektanarula.com"
+NEXT_PUBLIC_API_BASE = "https://hncc-kappa.vercel.app/api"
