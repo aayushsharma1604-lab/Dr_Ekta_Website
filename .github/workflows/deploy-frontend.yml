@@ -25,4 +25,4 @@ jobs:
       - run: npm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          NEXT_PUBLIC_API_BASE: "https://hncc-kappa.vercel.app/api
+          NEXT_PUBLIC_API_BASE: "https://hncc-kappa.vercel.app/api"
