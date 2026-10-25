@@ -10,6 +10,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const { connectDB } = require('./config/db');
 const env = require('./config/env');
+const User = require('./models/User');
 
 // Validate environment at startup
 env.validateEnv();
@@ -158,12 +159,37 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 /**
+ * Seed default admin user if not exists
+ */
+async function seedDefaultAdmin() {
+  const defaultEmail = 'admin@gmail.com';
+  const defaultPassword = 'admin123';
+
+  try {
+    const existingUser = await User.findOne({ email: defaultEmail });
+    if (!existingUser) {
+      await User.create({
+        name: 'Admin',
+        email: defaultEmail,
+        passwordHash: defaultPassword // pre-save hook will hash this
+      });
+      logger.info(`Default admin user created: ${defaultEmail}`);
+    } else {
+      logger.info(`Default admin user already exists: ${defaultEmail}`);
+    }
+  } catch (err) {
+    logger.warn('Failed to seed default admin user', { error: err.message });
+  }
+}
+
+/**
  * Start the server
  * @returns {Promise<http.Server>}
  */
 async function startServer() {
   await connectDB();
-  
+  await seedDefaultAdmin();
+
   const server = app.listen(env.port, () => {
     logger.info(`Server running on port ${env.port} in ${env.nodeEnv} mode`);
   });
