@@ -1,5 +1,5 @@
 const STATS = [
-  { value: "15+", label: "Years of experience" },
+  { value: "25th", label: "Year of experience" },
   { value: "15k+", label: "Happy patients" },
   { value: "Gold", label: "Medalist, V.S. Dental College", gold: true },
 ];

@@ -1,5 +1,6 @@
 import { Home } from "./home/home";
 import { AboutDrEkta } from "./about/about";
+import { AboutClinic } from "./aboutClinic/aboutClinic";
 import { Treatments } from "./treatments/treatments";
 import { TreatmentDetail } from "./treatments/treatmentDetail";
 import { Contact } from "./contact/contact";
@@ -19,6 +20,7 @@ import { MediaPage } from "./media/media";
 export {
   Home,
   AboutDrEkta,
+  AboutClinic,
   Treatments,
   TreatmentDetail,
   Contact,

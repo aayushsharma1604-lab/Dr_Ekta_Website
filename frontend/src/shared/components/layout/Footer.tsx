@@ -72,7 +72,7 @@ export default function Footer() {
               <img src="/logo.png" alt="Dr. Ekta Narula logo" className="h-9 w-9 shrink-0 object-contain" />
               <span className="text-lg font-bold text-white">Dr. Ekta Narula</span>
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-zinc-400">Providing modern, pain-free dental care with a focus on your comfort and well-being. 15+ years of trusted dental excellence in New Delhi.</p>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-400">Providing modern, pain-free dental care with a focus on your comfort and well-being. Now in the 25th year of trusted dental excellence in New Delhi.</p>
             <div className="mt-4 flex gap-3">
               {SOCIAL_ICONS.map((social) => {
                 const url = socialUrl(social.key);

@@ -107,7 +107,7 @@ export function AboutDrEkta() {
         }
         description={
           profile?.bio ||
-          "Dr. Ekta Narula is a dental surgeon with 15+ years of experience, practising in New Delhi. She is a Gold Medalist and has been providing exceptional dental care with a focus on patient comfort and advanced technology."
+          "Dr. Ekta Narula is a dental surgeon in her 25th year of experience, practising in New Delhi. She is a Gold Medalist and has been providing exceptional dental care with a focus on patient comfort and advanced technology."
         }
         image={profilePhoto}
         imageAlt="Dr. Ekta Narula"

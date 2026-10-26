@@ -22,7 +22,7 @@ export default function MediaCard({ item, variant = "grid" }: MediaCardProps) {
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-slate-900/5 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(15,23,42,0.45)] focus-within:-translate-y-1 focus-within:shadow-[0_24px_50px_-28px_rgba(15,23,42,0.45)]">
-      <div className={`relative overflow-hidden bg-slate-100 ${isFeatured ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-[16/10]"}`}>
+      <div className={`relative overflow-hidden bg-slate-100 ${isFeatured ? "aspect-[16/9] sm:aspect-[21/9]" : "aspect-[16/10]"}`}>
         <img
           ref={markLoaded}
           src={item.image}
@@ -61,7 +61,7 @@ export default function MediaCard({ item, variant = "grid" }: MediaCardProps) {
           </a>
         </h3>
 
-        <p className={`mt-3 flex-1 text-sm leading-6 text-slate-600 ${isFeatured ? "max-w-2xl" : "line-clamp-2"}`}>
+        <p className={`mt-3 flex-1 text-sm leading-6 text-slate-600 ${isFeatured ? "line-clamp-3 sm:line-clamp-none sm:max-w-2xl" : "line-clamp-2"}`}>
           {item.excerpt}
         </p>
 

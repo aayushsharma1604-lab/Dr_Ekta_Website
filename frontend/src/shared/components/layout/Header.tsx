@@ -29,7 +29,7 @@ export default function Header() {
       <div className={isOverlay ? "mx-auto max-w-[1600px] px-5 pt-5 sm:px-8 lg:px-12" : "mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8"}>
         <div className={isOverlay ? "flex h-[64px] items-center justify-between gap-2" : "flex h-[72px] items-center justify-between gap-2"}>
           <Link href="/" className="flex min-w-0 items-center gap-2">
-            <img src="/logo.png" alt="Dr. Ekta Narula logo" className={`h-9 w-9 shrink-0 object-contain sm:h-11 sm:w-11 lg:h-12 lg:w-12 ${isOverlay ? "brightness-0 invert" : ""}`} />
+            <img src="/logo.png" alt="Dr. Ekta Narula logo" className={`h-7 w-7 shrink-0 object-contain sm:h-11 sm:w-11 lg:h-12 lg:w-12 ${isOverlay ? "brightness-0 invert" : ""}`} />
             <span className="flex min-w-0 flex-col">
               <span className={`truncate text-[15px] font-bold leading-tight sm:text-lg lg:text-lg 2xl:text-xl ${isOverlay ? "text-white" : "text-zinc-900 dark:text-white"}`}>Dr. Ekta Narula</span>
               <span className={`hidden truncate text-[10px] font-medium uppercase leading-tight tracking-[0.14em] 2xl:block 2xl:text-[11px] 2xl:tracking-[0.18em] ${isOverlay ? "text-white/70" : "text-slate-500 dark:text-slate-400"}`}>Dental Care Clinic</span>

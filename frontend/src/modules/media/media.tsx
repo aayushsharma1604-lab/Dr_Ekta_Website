@@ -11,6 +11,7 @@ import {
 import MediaCard from "@/shared/components/media/MediaCard";
 import { PageHero, SectionHeading } from "@/shared/components/layout";
 import { EmptyState } from "@/shared/components/EmptyState";
+import { PAGE_VIDEO } from "@/shared/media/pageVideos";
 
 const PAGE_SIZE = 6;
 
@@ -83,13 +84,18 @@ export function MediaPage() {
         description="Every article, podcast, magazine feature, interview and award that features Dr. Ekta Narula and her clinic — collected in one place."
         image="/doctor-certificates.jpg"
         imageAlt="Framed certificates and awards of Dr. Ekta Narula"
-        backgroundImage="/dental/clinic-room.jpg"
+        backgroundImage={PAGE_VIDEO.media.poster}
+        backgroundVideo={PAGE_VIDEO.media.src}
       >
         <a href="#mentions" className="btn-sanctuary">
           Browse mentions
         </a>
         <a href="#press" className="btn-sanctuary-ghost">
           Media enquiries
+        </a>
+        <a href="/media-kit.pdf" download className="btn-sanctuary-ghost">
+          <span className="material-icons text-base">download</span>
+          Download media kit
         </a>
       </PageHero>
 
@@ -186,9 +192,12 @@ export function MediaPage() {
                   Handpicked by the clinic
                 </span>
               </div>
-              <div className="mt-6 grid gap-6 lg:grid-cols-2">
+              {/* Mobile: horizontal snap slider; sm+: two-column grid */}
+              <div className="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 sm:gap-6">
                 {featured.map((item) => (
-                  <MediaCard key={item.id} item={item} variant="featured" />
+                  <div key={item.id} className="w-[86%] shrink-0 snap-center sm:w-auto sm:shrink">
+                    <MediaCard item={item} variant="featured" />
+                  </div>
                 ))}
               </div>
             </div>
@@ -212,9 +221,12 @@ export function MediaPage() {
             ) : (
               <>
                 {filtered.length > 0 && (
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  /* Mobile: horizontal snap slider; sm+: 2/3-column grid */
+                  <div className="-mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                     {shown.map((item) => (
-                      <MediaCard key={item.id} item={item} />
+                      <div key={item.id} className="w-[80%] shrink-0 snap-center sm:w-auto sm:shrink">
+                        <MediaCard item={item} />
+                      </div>
                     ))}
                   </div>
                 )}
@@ -309,6 +321,14 @@ export function MediaPage() {
               >
                 <span className="material-icons text-base">mail</span>
                 press@drektanarula.com
+              </a>
+              <a
+                href="/media-kit.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white ring-1 ring-white/25 transition-colors hover:bg-white/20"
+              >
+                <span className="material-icons text-base">download</span>
+                Download media kit
               </a>
               <a
                 href="/contact"

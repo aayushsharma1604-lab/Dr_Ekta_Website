@@ -5,11 +5,13 @@
 const VIDEO_ROUTES = new Set([
   "/",
   "/about",
+  "/about-clinic",
   "/treatments",
   "/team",
   "/testimonials",
   "/gallery",
   "/knowledge",
+  "/media",
   "/contact",
   "/privacy-policy",
   "/terms",
@@ -25,6 +27,10 @@ export function hasVideoHero(pathname: string): boolean {
 
 export const PAGE_VIDEO = {
   about: {
+    src: "/dental/dentalVideo.mp4",
+    poster: "/dental/clinic-room.jpg",
+  },
+  aboutClinic: {
     src: "/dental/dentalVideo.mp4",
     poster: "/dental/clinic-room.jpg",
   },
@@ -50,6 +56,10 @@ export const PAGE_VIDEO = {
   },
   knowledge: {
     src: "/dental/videos/knowledge.mp4",
+    poster: "/dental/clinic-room.jpg",
+  },
+  media: {
+    src: "https://videos.pexels.com/video-files/6763242/6763242-hd_1920_1080_25fps.mp4",
     poster: "/dental/clinic-room.jpg",
   },
   contact: {

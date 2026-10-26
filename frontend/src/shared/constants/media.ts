@@ -134,7 +134,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
     url: "https://www.youtube.com/",
     image: "/hero-dr-ekta.jpg",
     excerpt:
-      "Fifteen years of practice, a gold medal from V.S. Dental College, and the decision to build a clinic around comfort.",
+      "Twenty-five years of practice, a gold medal from V.S. Dental College, and the decision to build a clinic around comfort.",
     youtubeId: "dQw4w9WgXcQ",
   },
   {

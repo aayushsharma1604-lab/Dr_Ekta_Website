@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: "Dr. Ekta Narula Dental Care",
   description:
-    "Dr. Ekta Narula is a trusted dental expert in New Delhi with 15+ years of experience in cosmetic dentistry, implants, root canals, and smile makeovers.",
+    "Dr. Ekta Narula is a trusted dental expert in New Delhi in her 25th year of experience in cosmetic dentistry, implants, root canals, and smile makeovers.",
   url: "https://drektanarula.com",
   ogImage: "/og-image.jpg",
   phone: "+919811013519",
@@ -38,6 +38,7 @@ export const SITE_CONFIG = {
 export const NAVIGATION = [
   { label: "Home", href: "/" },
   { label: "About Dr. Ekta", href: "/about" },
+  { label: "About Clinic", href: "/about-clinic" },
   { label: "Treatments", href: "/treatments" },
   { label: "Our Team", href: "/team" },
   { label: "Patient Stories", href: "/testimonials" },
@@ -143,7 +144,7 @@ export const TEAM = [
     name: "Dr. Ekta Narula",
     role: "Founder & Lead Dentist",
     qualifications: "BDS (Gold Medalist)",
-    experience: "15+ Years",
+    experience: "25th Year",
     specialization: "Cosmetic & Prosthetic Dentistry",
     residency: "MAMC, New Delhi",
     training: "Advanced Prosthetic Dentistry - Smile India, New Delhi",
@@ -173,7 +174,7 @@ export const TEAM = [
     name: "Dr. Anil Yadav",
     role: "Periodontist & Implantologist",
     qualifications: "BDS, MDS",
-    experience: "15+ Years",
+    experience: "25th Year",
     specialization: "Gum Surgeries & Implants",
   },
 ];

@@ -174,7 +174,7 @@ export function Home() {
 
           <div className="relative z-10 mx-auto flex min-h-[620px] max-w-[1560px] flex-col px-5 pb-10 pt-28 sm:px-8 lg:min-h-[760px] lg:px-10 lg:pb-12 lg:pt-32">
             <div className="grid flex-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-4">
                 <div className="home-rise mb-6 flex items-center gap-4 sm:mb-8 sm:gap-5">
                   <img
                     src="/logo.png"
@@ -213,27 +213,22 @@ export function Home() {
                 </div>
               </div>
 
-              <div className="grid gap-8 sm:grid-cols-2 lg:contents">
-                <div className="home-rise home-rise-delay-1 lg:col-span-4">
+              <div className="grid flex-1 grid-cols-1 items-stretch gap-3 sm:gap-6 lg:col-span-8 lg:grid-cols-8">
+                <div className="home-rise home-rise-delay-1 relative order-1 lg:order-none lg:col-span-5">
                   <div className="overflow-hidden rounded-2xl bg-slate-900 ring-1 ring-white/20">
                     <img
                       src={HERO_DOCTOR_IMAGE}
                       alt="Dr. Ekta Narula, dental surgeon in New Delhi"
-                      className="h-[300px] w-full object-cover object-center sm:h-[400px] lg:h-[560px]"
+                      className="h-56 w-full object-cover object-center sm:h-[400px] lg:h-[560px]"
                     />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <p className="text-sm font-semibold text-white">{TEAM[0].name}</p>
-                    <p className="text-[13px] text-white/70">{TEAM[0].specialization}</p>
-                    <p className="text-[13px] text-white/70">{TEAM[0].experience} Experience · 4.9 Rating</p>
                   </div>
                 </div>
 
-                <div className="home-rise home-rise-delay-2 lg:col-span-3">
-                  <div id="book-appointment" className="scroll-mt-24 rounded-2xl bg-white p-5 sm:p-6">
+                <div className="home-rise home-rise-delay-2 order-2 lg:order-none lg:col-span-3">
+                  <div id="book-appointment" className="scroll-mt-24 rounded-2xl bg-white p-4 sm:p-6">
                     <h2 className="heading-sm">Book an appointment</h2>
                     <p className="mt-1.5 text-[13px] leading-5 text-slate-600">
-                      Leave your number and our team calls you back within one working day.
+                      Leave your number — we call back within one working day.
                     </p>
                     <div className="mt-4">
                       <EnquiryForm compact />
@@ -258,27 +253,9 @@ export function Home() {
                 Dental services
               </h2>
             </div>
-            <p className="max-w-[430px] text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">
-              Experience modern dental care delivered with comfort, precision, and attention to detail. Our clinic provides a calm, welcoming environment designed to make every visit stress-free.
-            </p>
           </div>
 
-          <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-            <div className="max-w-[250px] shrink-0">
-              <div className="flex -space-x-3">
-                <img src="/dental/service-veneers.jpg" alt="Happy patient" className="h-10 w-10 rounded-full border-2 border-white object-cover" />
-                <img src="/dental/service-checkup.jpg" alt="Dental patient" className="h-10 w-10 rounded-full border-2 border-white object-cover" />
-                <img src="/hero-dr-ekta.jpg" alt="Dr. Ekta Narula" className="h-10 w-10 rounded-full border-2 border-white object-cover" />
-              </div>
-              <p className="mt-3 text-2xl font-bold text-slate-900">15k+ <span className="text-sm font-medium text-slate-600">Happy patients</span></p>
-              <p className="mt-2 text-xs leading-5 text-slate-600">
-                Discover delighted patient reviews about their comforting and satisfying dental care experience.
-              </p>
-              <Link href="/testimonials" className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900 hover:text-slate-700">
-                Read reviews <span className="material-icons text-base">arrow_outward</span>
-              </Link>
-            </div>
-
+          <div className="mt-12">
             {treatments.length === 0 ? (
               <EmptyState moduleName="Treatments" />
             ) : (
@@ -288,17 +265,17 @@ export function Home() {
                   <Link
                     key={treatment.slug}
                     href={`/treatments/${treatment.slug}`}
-                    className={`group relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 ${index === 3 ? "sm:hidden" : ""}`}
+                    className={`group relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 transition-transform duration-300 active:scale-[1.04] ${index === 3 ? "sm:hidden" : ""}`}
                   >
                     <img
                       src={treatmentImage(treatment, index)}
                       alt={treatment.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
                     <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-1 text-white sm:inset-x-4 sm:bottom-4">
                       <span className="max-w-[85%] text-base font-semibold leading-tight sm:text-xl">{treatment.title}</span>
-                      <span className="material-icons text-lg transition-transform group-hover:translate-x-1 sm:text-xl">arrow_forward</span>
+                      <span className="material-icons text-lg transition-transform group-hover:translate-x-1 group-active:translate-x-1 sm:text-xl">arrow_forward</span>
                     </div>
                   </Link>
                 ))}

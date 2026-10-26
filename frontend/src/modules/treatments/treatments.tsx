@@ -123,7 +123,7 @@ export function Treatments() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
             {[
-              { icon: "verified", title: "15+ Years Experience", desc: "Extensive experience in treating complex dental cases.", image: "/clinic-team.jpg" },
+              { icon: "verified", title: "25th Year of Experience", desc: "Extensive experience in treating complex dental cases.", image: "/clinic-team.jpg" },
               { icon: "precision_manufacturing", title: "Advanced Technology", desc: "State-of-the-art equipment for precise, comfortable treatment.", image: "/dental/service-checkup.jpg" },
               { icon: "favorite", title: "Patient-Centric Care", desc: "Your comfort and satisfaction are our top priorities.", image: "/dental/service-cleaning.jpg" },
               { icon: "emoji_events", title: "Gold Medalist", desc: "Award-winning expertise in cosmetic and prosthetic dentistry.", image: "/doctor-certificates.jpg" },
