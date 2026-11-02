@@ -59,7 +59,7 @@ export default function EnquiryForm({ compact = false }: { compact?: boolean }) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className={compact ? "flex flex-col gap-3" : "card flex flex-col gap-4"}>
+    <form onSubmit={handleSubmit} className={compact ? "flex flex-col gap-2" : "card flex flex-col gap-4"}>
       {!compact && (
         <>
           <h3 className="heading-sm">Send an Enquiry</h3>
@@ -97,7 +97,7 @@ export default function EnquiryForm({ compact = false }: { compact?: boolean }) 
         </div>
       )}
 
-      <Button type="submit" disabled={status === "loading"} className={compact ? "h-11 w-full" : "w-full"}>
+      <Button type="submit" disabled={status === "loading"} className={compact ? "h-9 w-full text-sm" : "w-full"}>
         {status === "loading" ? "Submitting..." : compact ? "Book Appointment" : "Submit Enquiry"}
       </Button>
       {!compact && <p className="text-xs text-zinc-400 text-center">By submitting you agree to be contacted. No medical data required here.</p>}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { SITE_CONFIG, GALLERY_ITEMS, TEAM } from "@/shared/constants";
 import { getHome } from "@/lib/api/services/home";
@@ -94,6 +94,48 @@ export function Home() {
   const [home, setHome] = useState<HomepageAggregate | null>(null);
   const [clinic, setClinic] = useState<ClinicInfo | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  /* auto-slide the mobile before/after carousel every 3s — always forward, card by card, loops at end */
+  const galleryIndexRef = useRef(0);
+  useEffect(() => {
+    const el = galleryRef.current;
+    if (!el) return;
+    let pausedUntil = 0;
+    const markPause = () => {
+      pausedUntil = Date.now() + 6000;
+      /* re-sync index to the card currently in view so the next auto-slide is seamless */
+      const elRect = el.getBoundingClientRect();
+      const mid = elRect.left + el.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      Array.from(el.children).forEach((card, i) => {
+        const r = (card as HTMLElement).getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      galleryIndexRef.current = best;
+    };
+    el.addEventListener("pointerdown", markPause);
+    el.addEventListener("wheel", markPause, { passive: true });
+    const id = setInterval(() => {
+      if (document.hidden || Date.now() < pausedUntil) return;
+      const cards = Array.from(el.children) as HTMLElement[];
+      if (cards.length < 2) return;
+      if (el.scrollWidth <= el.clientWidth + 4) return; /* desktop grid — nothing to scroll */
+      galleryIndexRef.current = (galleryIndexRef.current + 1) % cards.length;
+      /* target: card centered in the viewport, matching the snap alignment */
+      const elRect = el.getBoundingClientRect();
+      const cardRect = cards[galleryIndexRef.current].getBoundingClientRect();
+      const delta = (cardRect.left + cardRect.width / 2) - (elRect.left + el.clientWidth / 2);
+      el.scrollTo({ left: el.scrollLeft + delta, behavior: "smooth" });
+    }, 3000);
+    return () => {
+      clearInterval(id);
+      el.removeEventListener("pointerdown", markPause);
+      el.removeEventListener("wheel", markPause);
+    };
+  }, [galleryItems]);
   const [instagramPosts, setInstagramPosts] = useState<CuratedPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -173,20 +215,14 @@ export function Home() {
           <div className="absolute inset-0 bg-slate-950/75" />
 
           <div className="relative z-10 mx-auto flex min-h-[620px] max-w-[1560px] flex-col px-5 pb-10 pt-28 sm:px-8 lg:min-h-[760px] lg:px-10 lg:pb-12 lg:pt-32">
-            <div className="grid flex-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
-              <div className="lg:col-span-4">
-                <div className="home-rise mb-6 flex items-center gap-4 sm:mb-8 sm:gap-5">
+            <div className="grid flex-1 items-center gap-5 lg:grid-cols-12 lg:gap-8">
+              <div className="text-center lg:col-span-4 lg:text-left">
+                <div className="home-rise mb-6 flex justify-center sm:mb-8 lg:justify-start">
                   <img
-                    src="/logo.png"
-                    alt="Dr. Ekta Narula Dental Care"
-                    className="h-24 w-24 shrink-0 object-contain sm:h-28 sm:w-28"
+                    src="/logo.png?v=4"
+                    alt="Dr. Ekta Narula's Dental Care & Implant Centre"
+                    className="h-auto w-56 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.35)] sm:w-72 lg:w-80"
                   />
-                  <div className="min-w-0">
-                    <p className="font-heading text-[28px] font-bold leading-[1.1] tracking-[-0.025em] text-white sm:text-[40px]">
-                      Dr. Ekta Narula
-                    </p>
-                    <p className="text-xl leading-[1.2] text-white">Dental Care Centre</p>
-                  </div>
                 </div>
                 <h1 className="home-rise max-w-[720px] text-[34px] font-bold uppercase leading-[0.92] tracking-[-0.02em] [word-spacing:0.12em] text-white sm:text-[52px] lg:text-[52px] xl:text-[56px]">
                   Modern dentistry
@@ -196,7 +232,7 @@ export function Home() {
                 <p className="home-rise home-rise-delay-1 mt-6 max-w-[430px] text-base leading-7 text-white/85">
                   Expert dental care for healthy, confident smiles at every age—delivered with comfort, precision, and trust.
                 </p>
-                <div className="home-rise home-rise-delay-2 mt-8 flex max-w-[560px] flex-wrap items-center gap-2">
+                <div className="home-rise home-rise-delay-2 mt-8 hidden max-w-[560px] flex-wrap items-center justify-center gap-2 sm:flex lg:justify-start">
                   {treatments.slice(0, 4).map((treatment, index) => (
                     <Link
                       key={treatment.slug}
@@ -219,18 +255,18 @@ export function Home() {
                     <img
                       src={HERO_DOCTOR_IMAGE}
                       alt="Dr. Ekta Narula, dental surgeon in New Delhi"
-                      className="h-56 w-full object-cover object-center sm:h-[400px] lg:h-[560px]"
+                      className="h-48 w-full object-cover object-center sm:h-[340px] lg:h-[420px]"
                     />
                   </div>
                 </div>
 
                 <div className="home-rise home-rise-delay-2 order-2 lg:order-none lg:col-span-3">
-                  <div id="book-appointment" className="scroll-mt-24 rounded-2xl bg-white p-4 sm:p-6">
-                    <h2 className="heading-sm">Book an appointment</h2>
-                    <p className="mt-1.5 text-[13px] leading-5 text-slate-600">
+                  <div id="book-appointment" className="scroll-mt-24 rounded-xl bg-white p-3 sm:p-4">
+                    <h2 className="text-base font-bold text-slate-900">Book an appointment</h2>
+                    <p className="mt-0.5 text-[12px] leading-4 text-slate-600">
                       Leave your number — we call back within one working day.
                     </p>
-                    <div className="mt-4">
+                    <div className="mt-2.5">
                       <EnquiryForm compact />
                     </div>
                   </div>
@@ -572,9 +608,9 @@ export function Home() {
           </div>
 
           {galleryItems.length === 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            <div ref={galleryRef} className="mt-10 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
               {GALLERY_ITEMS.slice(0, 2).map((item) => (
-                <div key={item.id} className="overflow-hidden rounded-2xl bg-[#eff6ff] p-4">
+                <div key={item.id} className="min-w-[86%] snap-center overflow-hidden rounded-2xl bg-[#eff6ff] p-4 sm:min-w-0">
                   <BeforeAfterSlider before={(item as unknown as { before: string }).before} after={(item as unknown as { after: string }).after} beforeLabel="Before" afterLabel="After" />
                   <div className="mt-4 flex items-center justify-between">
                     <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">Before & After</p><h3 className="mt-1 text-base font-semibold text-slate-900">{item.treatment}</h3></div>
@@ -584,13 +620,13 @@ export function Home() {
               ))}
             </div>
           ) : (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div ref={galleryRef} className="mt-10 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
               {galleryItems.slice(0, 6).map((item) => {
                 const beforeUrl = resolveMediaUrl(item.beforeImg);
                 const afterUrl = resolveMediaUrl(item.afterImg);
                 const treatment = (item.treatmentTag as { title?: string })?.title || "Smile Transformation";
                 return (
-                  <div key={item._id} className="overflow-hidden rounded-2xl bg-[#eff6ff] p-4">
+                  <div key={item._id} className="min-w-[86%] snap-center overflow-hidden rounded-2xl bg-[#eff6ff] p-4 sm:min-w-0">
                     {beforeUrl && afterUrl ? (
                       <BeforeAfterSlider before={beforeUrl} after={afterUrl} beforeLabel="Before" afterLabel="After" />
                     ) : (
