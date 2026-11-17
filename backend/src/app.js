@@ -53,6 +53,23 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+// On Vercel the app runs as a function with no startup hook to await, so open the
+// DB connection on the first request of each instance and retry after a failure.
+if (process.env.VERCEL) {
+  let dbPromise = null;
+  app.use(async (req, res, next) => {
+    try {
+      dbPromise = dbPromise || connectDB();
+      await dbPromise;
+      next();
+    } catch (err) {
+      dbPromise = null;
+      logger.error('Database unavailable', { error: err.message });
+      res.status(503).json({ error: 'Service temporarily unavailable' });
+    }
+  });
+}
+
 // Body parsing (1mb cap fits CMS article bodies - F25)
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
@@ -198,4 +215,7 @@ if (require.main === module && process.env.NODE_ENV !== 'test') {
   });
 }
 
-module.exports = { app, startServer };
+// Vercel's zero-config Express support needs the app itself exported from this file.
+module.exports = app;
+module.exports.app = app; // keeps `const { app } = require('../src/app')` callers working
+module.exports.startServer = startServer;

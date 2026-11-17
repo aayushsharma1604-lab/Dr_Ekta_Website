@@ -4,11 +4,16 @@
 
 1. **Add New → Project → Import** the GitHub repo.
 2. **Root Directory:** `backend` (the repo is a monorepo; only this folder is the API).
-3. Framework Preset: **Other**. Build and Output settings: leave empty.
-4. Add the environment variables below (Production + Preview), then **Deploy**.
+3. **Framework Preset:** leave on auto-detect — Vercel detects Express from `src/app.js`.
+4. Add the environment variables below, then **Deploy**.
 
-`vercel.json` rewrites every path to `api/index.js`, which runs the Express app as one
-serverless function — `/api/public/...` and `/api/admin/...` keep working unchanged.
+No `vercel.json` and no `api/` function are needed. Vercel detects the Express app
+exported by `src/app.js` and runs it as a single function, so every route
+(`/api/public/...`, `/api/admin/...`) works unchanged. If detection ever fails, set
+**Framework Preset** to `Express` in Project → Settings → Build & Development.
+
+Verify after deploying: `GET https://<deployment>/` returns
+`{"name":"Dr. Ekta Narula Dental Care API",...}`.
 
 ## Environment variables
 
@@ -25,15 +30,16 @@ serverless function — `/api/public/...` and `/api/admin/...` keep working unch
 | `PRACTO_PROFILE_URL` / `PRACTO_BOOKING_URL` | optional | |
 | `GA_MEASUREMENT_ID` / `GA_API_SECRET` | optional | |
 
-Do not set `PORT` — Vercel supplies its own.
+Do not set `PORT` — Vercel supplies its own. The app expects Node `26.x` (see `engines`).
 
 ## Atlas checklist
 
 - Network Access: allow `0.0.0.0/0` (Vercel functions have no fixed IPs), or use Atlas IP access lists on a paid tier.
 - The pool is capped at 5 connections per function instance when `VERCEL` is set, so on the free M0 tier (500 connections) keep an eye on concurrent function count.
 
-## Known serverless limits
+## How it behaves on serverless
 
+- The DB connects on the first request of each instance (`src/app.js`, gated on `VERCEL`) and is reused for the rest of that instance. An unreachable DB returns `503`, not a hung request.
 - Rate limiting uses in-memory counters, so limits apply per function instance, not globally.
-- Enquiry notification email is sent inline; keep the SMTP provider fast (a slow one hits the 30 s function limit).
-- Cold starts reconnect to Atlas on the first request of each instance.
+- Enquiry notification email is sent inline; keep the SMTP provider fast.
+- `express.static()` is not served by Vercel — uploads go to Cloudinary, so this does not matter here.
