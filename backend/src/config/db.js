@@ -16,10 +16,14 @@ async function connectDB() {
     return mongoose.connection;
   }
 
+  // Serverless (Vercel) spins up many short-lived instances, so each must hold few
+  // connections or the Atlas connection limit is exhausted. A long-lived server can afford more.
+  const serverless = Boolean(process.env.VERCEL);
+
   try {
     await mongoose.connect(mongodbUri, {
-      maxPoolSize: 20,
-      minPoolSize: 10,
+      maxPoolSize: serverless ? 5 : 20,
+      minPoolSize: serverless ? 0 : 10,
       retryWrites: true,
       w: 'majority',
       serverSelectionTimeoutMS: 5000,
